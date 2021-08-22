@@ -12,7 +12,7 @@
     "sequence": 1,
     "category": "Inventory Management",
 
-    "author": "PyLad",
+    "author": "EZ SOlutions",
     "website": "",
     "version": '14.0.0.1',
     'price': 11.99,
