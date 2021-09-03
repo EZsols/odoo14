@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_visa_view" model="ir.ui.view">
+        <field name="name">hr.employee.visa.form</field>
+        <field name="model">hr.employee.visa</field>
+        <field name="arch" type="xml">
+            <form string="Employee Visa Management">
+                <header>
+                    <button name="action_approve" states="new" string="Approve" type="object"
+                            groups="fl_employee_visa.group_visa_hr" class="oe_highlight"/>
+                    <button name="action_refuse" states="new" string="Refuse" type="object"
+                            groups="fl_employee_visa.group_visa_hr" />
+                    <field name="state" widget="statusbar" options="{'readonly': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="seq_name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="seq_name"/>
+                        </h1>
+                        <label for="employee_id" class="oe_edit_only"/>
+                        <h2>
+                            <field name="employee_id" class="oe_inline"/>
+                        </h2>
+                        <label for="category_id" class="oe_edit_only"/>
+                        <h3>
+                            <field name="category_id" class="oe_inline"/>
+                        </h3>
+                    </div>
+
+                    <group>
+                        <group string="Employee Details" >
+                            <field name="mobile_phone" widget="phone"/>
+                            <field name="work_phone" widget="phone"/>
+                            <field name="work_email" widget="email"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="department_id"/>
+                            <field name="coach_id"/>
+                        </group>
+                        <group string="Citizenship" >
+                            <field name="country_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="identification_id" groups="hr.group_hr_user"/>
+                            <field name="passport_id" groups="hr.group_hr_user"/>
+                            <field name="gender" />
+                            <field name="birthday" />
+                            <field name="place_of_birth" groups="hr.group_hr_user" />
+                            <field name="country_of_birth" groups="hr.group_hr_user" />
+                        </group>
+                        <group string="Embassy Details" name="embassy_details">
+                            <field name="embassy_id" />
+                            <field name="commissioner_name" />
+                            <field name="street" placeholder="Street..."  />
+                            <field name="street2" placeholder="Street 2..." />
+                            <field name="city" placeholder="City" />
+                            <field name="state_id" class="o_address_state" placeholder="State"/>
+                            <field name="embassy_country_id" placeholder="Country" />
+                        </group>
+                        <group string="Work Permit" name="work_permit">
+                            <field name="visa_no" />
+                            <field name="permit_no" />
+                            <field name="visa_expire" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_visa_tree" model="ir.ui.view">
+        <field name="name">hr.employee.visa.tree</field>
+        <field name="model">hr.employee.visa</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Visa">
+                <field name="seq_name" />
+                <field name="employee_id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_visa_view" model="ir.actions.act_window">
+        <field name="name">Employee Visa</field>
+        <field name="res_model">hr.employee.visa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Visa Application...
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="hr_visa_menu_label" name="Employee Visa Menu" parent="hr.menu_human_resources_configuration"
+              groups="hr.group_hr_manager"
+              sequence="200" />
+
+    <menuitem id="hr_visa_menu" name="Visa Application" parent="fl_employee_visa.hr_visa_menu_label"
+              action="fl_employee_visa.action_hr_visa_view"
+              sequence="200"/>
+
+
+    <record id="visa_seq_num_view" model="ir.sequence">
+        <field name="name">Employee Visa</field>
+        <field name="code">hr.employee.visa.sequence</field>
+        <field name="prefix">Visa/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>
