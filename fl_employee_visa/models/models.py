@@ -114,7 +114,7 @@ class HrEmployeeVisaEmbassy(models.Model):
     _description = 'Employee Visa Embassy'
     _rec_name = 'name'
 
-    name = fields.Char('Embassy Title')
+    name = fields.Char('Embassy Title', required=True)
     commissioner_name = fields.Char('Commissioner')
     street = fields.Char(readonly=False)
     street2 = fields.Char(readonly=False)
@@ -127,7 +127,7 @@ class HrEmployeeVisaCategory(models.Model):
     _description = 'Employee Visa Category'
     _rec_name = 'name'
 
-    name = fields.Char('Category')
+    name = fields.Char('Category', required=True)
     description = fields.Html('Description')
 
 class HrEmployeeInherit(models.Model):

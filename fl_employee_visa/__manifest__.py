@@ -14,6 +14,9 @@
     "website": "",
     "version": '14.0.0.1',
     "depends": ['base','hr'],
+        'images': [
+        'static/description/web-banner.gif',
+    ],
     "data": [
         'security/ir.model.access.csv',
         'security/security.xml',
