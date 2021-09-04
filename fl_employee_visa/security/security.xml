@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record model="ir.module.category" id="visa_request_groups_root">
-        <field name="name">Visa Requests</field>
-   		<field name="description">Manage Visa Requests</field>
+        <field name="name">Letter Requests</field>
+   		<field name="description">Manage Letter Requests</field>
     </record>
 
     <record id="group_visa_hr" model="res.groups">
-        <field name="name">HR/Administrator</field>
+        <field name="name">HR-Administrator</field>
         <field name="category_id" ref="visa_request_groups_root"/>
     </record>
 

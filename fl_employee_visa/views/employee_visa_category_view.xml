@@ -28,7 +28,7 @@
         <field name="name">hr.employee.visa.category.tree</field>
         <field name="model">hr.employee.visa.category</field>
         <field name="arch" type="xml">
-            <tree string="Category Details">
+            <tree string="Category" editable="bottom">
                 <field name="name" />
             </tree>
         </field>
@@ -50,5 +50,5 @@
 
     <menuitem id="action_category_details_menu" name="Categories" parent="fl_employee_visa.hr_visa_menu_label"
               action="fl_employee_visa.action_category_details_view" groups="fl_employee_visa.group_visa_hr"
-              sequence="202" />
+              sequence="203" />
 </odoo>

@@ -11,6 +11,9 @@
                             groups="fl_employee_visa.group_visa_hr" class="oe_highlight"/>
                     <button name="action_refuse" states="new" string="Refuse" type="object"
                             groups="fl_employee_visa.group_visa_hr" />
+
+                    <button name="action_print" states="approved" string="Print Letter" type="object"
+                            groups="fl_employee_visa.group_visa_hr" class="oe_highlight"/>
                     <field name="state" widget="statusbar" options="{'readonly': '1'}"/>
                 </header>
                 <sheet>
@@ -22,23 +25,39 @@
                         <label for="employee_id" class="oe_edit_only"/>
                         <h2>
                             <field name="employee_id" class="oe_inline"/>
+                            <field name="user_id" invisible="1"/>
                         </h2>
-                        <label for="category_id" class="oe_edit_only"/>
-                        <h3>
-                            <field name="category_id" class="oe_inline"/>
-                        </h3>
                     </div>
 
                     <group>
                         <group string="Employee Details" >
-                            <field name="mobile_phone" widget="phone"/>
-                            <field name="work_phone" widget="phone"/>
-                            <field name="work_email" widget="email"/>
-                            <field name="company_id" groups="base.group_multi_company"/>
-                            <field name="department_id"/>
-                            <field name="coach_id"/>
+                            <span class="o_form_label o_td_label" name="emp_name">
+                                <b>Name</b>
+                                <i><h6>(As is on passport)</h6></i>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="surname" placeholder="Surname..." class="o_address_street"/>
+                                <field name="other_name" placeholder="Other name..." class="o_address_street"/>
+                            </div>
+                            <field name="mobile_phone" widget="phone" invisible="1"/>
+                            <field name="work_phone" widget="phone" invisible="1"/>
+                            <field name="work_email" widget="email" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company" invisible="1"/>
+                            <field name="department_id" invisible="1"/>
+                            <field name="coach_id" invisible="1"/>
                         </group>
-                        <group string="Citizenship" >
+                        <group string="Travel Details">
+                            <field name="travel_passport_id"/>
+                            <field name="travel_country_id"/>
+                            <field name="travel_date"/>
+                            <field name="category_id" string="Purpose of Travel"/>
+                        </group>
+                        <group string="Employee Status">
+                            <field name="first_contract_date"/>
+                            <field name="job_id"/>
+                            <field name="registration_number"/>
+                        </group>
+                        <group string="Citizenship" invisible="1">
                             <field name="country_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                             <field name="identification_id" groups="hr.group_hr_user"/>
                             <field name="passport_id" groups="hr.group_hr_user"/>
@@ -49,14 +68,20 @@
                         </group>
                         <group string="Embassy Details" name="embassy_details">
                             <field name="embassy_id" />
-                            <field name="commissioner_name" />
+                            <field name="commissioner_name" invisible="1"/>
                             <field name="street" placeholder="Street..."  />
                             <field name="street2" placeholder="Street 2..." />
                             <field name="city" placeholder="City" />
                             <field name="state_id" class="o_address_state" placeholder="State"/>
                             <field name="embassy_country_id" placeholder="Country" />
                         </group>
-                        <group string="Work Permit" name="work_permit">
+                        <group string="Approver Details" name="approver_details">
+                            <field name="approver_id" />
+                            <field name="company" />
+                            <field name="approver_name" />
+                            <field name="approver_email" />
+                        </group>
+                        <group string="Work Permit" name="work_permit" invisible="1">
                             <field name="visa_no" />
                             <field name="permit_no" />
                             <field name="visa_expire" />
@@ -80,7 +105,7 @@
     </record>
 
     <record id="action_hr_visa_view" model="ir.actions.act_window">
-        <field name="name">Employee Visa</field>
+        <field name="name">Employee Letters</field>
         <field name="res_model">hr.employee.visa</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
@@ -88,18 +113,36 @@
         <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create Visa Application...
+                Create Letter...
             </p>
         </field>
     </record>
 
-    <menuitem id="hr_visa_menu_label" name="Employee Visa Menu" parent="hr.menu_human_resources_configuration"
-              groups="hr.group_hr_manager"
+    <record id="action_employee_visa_view" model="ir.actions.act_window">
+        <field name="name">My Letters</field>
+        <field name="res_model">hr.employee.visa</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id','=',uid),('user_id','!=',False)]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Letter...
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="hr_visa_menu_label" name="Employee Letters Menu"
+              parent="hr.menu_human_resources_configuration"
               sequence="200" />
 
-    <menuitem id="hr_visa_menu" name="Visa Application" parent="fl_employee_visa.hr_visa_menu_label"
-              action="fl_employee_visa.action_hr_visa_view"
+    <menuitem id="employee_letter_menu" name="My Letters" parent="fl_employee_visa.hr_visa_menu_label"
+              action="fl_employee_visa.action_employee_visa_view"
               sequence="200"/>
+
+    <menuitem id="hr_letter_menu" name="All Letters" parent="fl_employee_visa.hr_visa_menu_label"
+              action="fl_employee_visa.action_hr_visa_view" groups="fl_employee_visa.group_visa_hr"
+              sequence="201"/>
 
 
     <record id="visa_seq_num_view" model="ir.sequence">

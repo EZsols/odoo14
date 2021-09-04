@@ -12,10 +12,10 @@
                         <h1>
                             <field name="name" default_focus="1" placeholder="Category"/>
                         </h1>
-                        <label for="commissioner_name" class="oe_edit_only"/>
-                        <h3>
-                            <field name="commissioner_name" default_focus="1" placeholder="Commissioner"/>
-                        </h3>
+<!--                        <label for="commissioner_name" class="oe_edit_only"/>-->
+<!--                        <h3>-->
+<!--                            <field name="commissioner_name" default_focus="1" placeholder="Commissioner"/>-->
+<!--                        </h3>-->
                     </div>
                     <group>
                         <group>
@@ -62,5 +62,5 @@
 
     <menuitem id="action_embassy_details_menu" name="Embassies" parent="fl_employee_visa.hr_visa_menu_label"
               action="fl_employee_visa.action_embassy_details_view" groups="fl_employee_visa.group_visa_hr"
-              sequence="201" />
+              sequence="202" />
 </odoo>

@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <report id="intro_letter"
+                string="Print letter"
+                model="hr.employee.visa"
+                name="fl_employee_visa.intro_letter_template"
+                report_type="qweb-pdf"
+                menu="0"/>
+
+        <!--Template for  pdf-->
+        <template id="intro_letter_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure" />
+                        <div t-if="o.travel_date" class="col-xs-3">
+                            <p t-field="o.travel_date"
+                               t-options='{"widget": "date","format": "dd MMMM,yyyy"}' />
+                        </div>
+                        <div t-if="o.address" class="col-xs-3">
+                            <p t-field="o.address"/>
+                        </div>
+                        <h4>Dear Sir/Madam,</h4>
+
+                        <h4 style="text-align: center;">
+                            <strong>
+                                <b><u>
+                                    INTRODUCTION LETTER FOR
+                                    <span t-field="o.surname"/>
+                                    <span t-field="o.other_name"/>
+                                    PASSPORT NUMBER
+                                    <span t-field="o.travel_passport_id"/>
+                                </u></b>
+                            </strong>
+                        </h4>
+
+                        <p>
+                            This is to introduce to you
+                            <span t-field="o.surname"/>
+                            <span t-field="o.other_name"/>,
+                            a/an
+                            <span t-field="o.job_id"/>
+                            with Staff Identification number
+                            <span t-field="o.registration_number"/>
+                            in our
+                            <span t-field="o.company"/>.
+                        </p>
+                        <p>
+                            <span t-field="o.surname"/>
+                            <span t-field="o.other_name"/>
+                            joined the company on the
+                            <span t-field="o.first_contract_date" t-options='{"widget": "date","format": "dd MMMM,yyyy"}'/>.
+                        </p>
+                        <p>
+                            <span t-field="o.surname"/>
+                            <span t-field="o.other_name"/> wishes to visit <span t-field="o.country_id"/>
+                            from <span t-field="o.travel_date"
+                                       t-options='{"widget": "date","format": "dd MMMM,yyyy"}'/>.
+                        </p>
+                        <p>
+                            We will appreciate it if you can render all necessary assistance that may be required.
+                        </p>
+                        <p>
+                            Should you require further clarification, kindly contact the undersigned.
+                        </p>
+                        <p>
+                            Thank you.
+                        </p>
+                        <p>
+                            Yours Sincerely,<br/>
+                            <strong><b>For:  <span t-field="o.company"/></b></strong>
+                        </p>
+                        <p>
+                            <span t-field="o.approver_name"/><br/>
+                            Head, Human Capital<br/>
+                            <span t-field="o.approver_email"/>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
